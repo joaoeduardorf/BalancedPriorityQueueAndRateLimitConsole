@@ -1,12 +1,18 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using BalancedPriorityQueueAndRateLimitConsole;
 
-Console.WriteLine("Hello, World!");
+Console.WriteLine("Fila balanceada e limite de envios");
 
-string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\joaoe\source\repos\BalancedPriorityQueueAndRateLimitConsole\BalancedPriorityQueueAndRateLimitConsole\Database1.mdf;";
+// Obtendo caminho do arquivo de banco de dados
+string absolutPath = Path.GetFullPath((@"..\..\..\Database1.mdf"));
+
+// Montagem da string de conexão
+string connectionString = $@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={absolutPath};";
 
 // Criando uma fila de mensagens prioritárias balanceadas
 BalancedPriorityQueue<string> priorityQueue = new BalancedPriorityQueue<string>(connectionString);
+
+// Atribuindo quantidade maxima de envios
 var rateLimiter = new RateLimiter(5);
 
 // Adicionando algumas mensagens com prioridades diferentes
